@@ -1,0 +1,520 @@
+[
+  {
+    "title": "Herencia de mutuo acuerdo",
+    "budget": 3500,
+    "legalTasks": [
+      {
+        "title": "Estudio de antecedentes y de la documentación aportada."
+      },
+      {
+        "title": "Estudio jurídico de la sucesión y de la masa hereditaria."
+      },
+      {
+        "title": "Asesoramiento jurídico previo y durante toda la tramitación."
+      },
+      {
+        "title": "Información continuada al cliente sobre el estado del expediente o procedimiento."
+      },
+      {
+        "title": "Reuniones de seguimiento con el cliente."
+      },
+      {
+        "title": "Reuniones y negociaciones con la parte contraria para intentar alcanzar un acuerdo."
+      },
+      {
+        "title": "Coordinación con notaría, registros, entidades bancarias y demás organismos intervinientes."
+      },
+      {
+        "title": "Redacción, negociación y revisión del cuaderno particional."
+      },
+      {
+        "title": "Preparación y revisión de escrituras de aceptación y partición de herencia."
+      },
+      {
+        "title": "Aceptación, partición y adjudicación de herencia."
+      },
+      {
+        "title": "Liquidación del Impuesto sobre Sucesiones y Donaciones."
+      },
+      {
+        "title": "Liquidación de la plusvalía municipal mortis causa."
+      },
+      {
+        "title": "Inscripción de bienes inmuebles en el Registro de la Propiedad."
+      }
+    ]
+  },
+  {
+    "title": "Aceptación y adjudicación de herencia notarial",
+    "budget": 2333,
+    "legalTasks": [
+      {
+        "title": "Estudio de antecedentes y de la documentación aportada."
+      },
+      {
+        "title": "Estudio jurídico de la sucesión y de la masa hereditaria."
+      },
+      {
+        "title": "Asesoramiento jurídico previo y durante toda la tramitación."
+      },
+      {
+        "title": "Preparación y revisión de escrituras de aceptación y partición de herencia."
+      },
+      {
+        "title": "Aceptación, partición y adjudicación de herencia."
+      },
+      {
+        "title": "Asistencia letrada en notaría para firmas, ratificaciones o actuaciones relacionadas con el encargo."
+      },
+      {
+        "title": "Liquidación del Impuesto sobre Sucesiones y Donaciones."
+      },
+      {
+        "title": "Liquidación de la plusvalía municipal mortis causa."
+      },
+      {
+        "title": "Inscripción de bienes inmuebles en el Registro de la Propiedad."
+      }
+    ]
+  },
+  {
+    "title": "Adición de herencia",
+    "legalTasks": [
+      {
+        "title": "Estudio de antecedentes y de la documentación aportada."
+      },
+      {
+        "title": "Estudio jurídico de la sucesión y de la masa hereditaria."
+      },
+      {
+        "title": "Asesoramiento jurídico previo y durante toda la tramitación."
+      },
+      {
+        "title": "Adición de herencia y tramitación de cuotas vacantes."
+      },
+      {
+        "title": "Preparación y revisión de escrituras de aceptación y partición de herencia."
+      },
+      {
+        "title": "Liquidación del Impuesto sobre Sucesiones y Donaciones."
+      },
+      {
+        "title": "Liquidación de la plusvalía municipal mortis causa."
+      },
+      {
+        "title": "Inscripción de bienes inmuebles en el Registro de la Propiedad."
+      }
+    ]
+  },
+  {
+    "title": "Herencia con pasivo hereditario",
+    "budget": 4100,
+    "legalTasks": [
+      {
+        "title": "Estudio de antecedentes y de la documentación aportada."
+      },
+      {
+        "title": "Estudio jurídico de la sucesión y de la masa hereditaria."
+      },
+      {
+        "title": "Asesoramiento jurídico previo y durante toda la tramitación."
+      },
+      {
+        "title": "Averiguación de deudas, cargas o pasivos de la herencia."
+      },
+      {
+        "title": "Negociación con acreedores y gestión de quitas."
+      },
+      {
+        "title": "Tramitación de seguros vinculados a la herencia."
+      },
+      {
+        "title": "Tramitación de la venta de bienes hereditarios."
+      },
+      {
+        "title": "Preparación y revisión de escrituras de aceptación y partición de herencia."
+      },
+      {
+        "title": "Aceptación, partición y adjudicación de herencia."
+      },
+      {
+        "title": "Liquidación del Impuesto sobre Sucesiones y Donaciones."
+      },
+      {
+        "title": "Inscripción de bienes inmuebles en el Registro de la Propiedad."
+      }
+    ]
+  },
+  {
+    "title": "Herencia contenciosa: formación de inventario",
+    "budget": 3999,
+    "legalTasks": [
+      {
+        "title": "Estudio de antecedentes y de la documentación aportada."
+      },
+      {
+        "title": "Estudio jurídico de la sucesión y de la masa hereditaria."
+      },
+      {
+        "title": "Tramitación judicial de herencias contenciosas."
+      },
+      {
+        "title": "Preparación y presentación de la solicitud de formación de inventario."
+      },
+      {
+        "title": "Formación de inventario de bienes, derechos, obligaciones y deudas."
+      },
+      {
+        "title": "Contestación a pretensiones, alegaciones o escritos de la parte contraria."
+      },
+      {
+        "title": "Defensa letrada en comparecencias y vistas relativas al inventario hereditario."
+      },
+      {
+        "title": "Impugnación o defensa de partidas del inventario."
+      },
+      {
+        "title": "Defensa frente a impugnaciones, oposiciones o recursos, así como interposición de los que procedan."
+      }
+    ]
+  },
+  {
+    "title": "Herencia contenciosa: división y adjudicación",
+    "legalTasks": [
+      {
+        "title": "Estudio de antecedentes y de la documentación aportada."
+      },
+      {
+        "title": "Estudio jurídico de la sucesión y de la masa hereditaria."
+      },
+      {
+        "title": "Tramitación judicial de herencias contenciosas."
+      },
+      {
+        "title": "Preparación y presentación de demanda de división de herencia."
+      },
+      {
+        "title": "Preparación, negociación e impugnación de propuestas de liquidación de la masa hereditaria."
+      },
+      {
+        "title": "Valoración económica de bienes, derechos y lotes hereditarios."
+      },
+      {
+        "title": "Redacción y defensa de propuestas de adjudicación."
+      },
+      {
+        "title": "Asistencia letrada a comparecencias, vistas, audiencias previas y juicios."
+      },
+      {
+        "title": "Defensa frente a impugnaciones, oposiciones o recursos, así como interposición de los que procedan."
+      },
+      {
+        "title": "Incorporación del resultado final a escritura pública, cuando proceda."
+      },
+      {
+        "title": "Entrega de bienes adjudicados a los herederos."
+      }
+    ]
+  },
+  {
+    "title": "Divorcio de mutuo acuerdo",
+    "budget": 1500,
+    "legalTasks": [
+      {
+        "title": "Estudio de antecedentes y de la documentación aportada."
+      },
+      {
+        "title": "Asesoramiento jurídico previo y durante toda la tramitación."
+      },
+      {
+        "title": "Negociación previa de divorcio de mutuo acuerdo."
+      },
+      {
+        "title": "Redacción y revisión de convenio regulador."
+      },
+      {
+        "title": "Preparación y tramitación de divorcio de mutuo acuerdo ante notaría."
+      },
+      {
+        "title": "Asistencia a la firma del divorcio ante notaría."
+      },
+      {
+        "title": "Inscripción del divorcio en el Registro Civil."
+      }
+    ]
+  },
+  {
+    "title": "Divorcio contencioso",
+    "budget": 2200,
+    "legalTasks": [
+      {
+        "title": "Estudio de antecedentes y de la documentación aportada."
+      },
+      {
+        "title": "Análisis jurídico integral del asunto."
+      },
+      {
+        "title": "Asesoramiento jurídico previo y durante toda la tramitación."
+      },
+      {
+        "title": "Redacción y presentación de demanda de divorcio contencioso."
+      },
+      {
+        "title": "Asistencia letrada en vistas y actuaciones del procedimiento de divorcio."
+      },
+      {
+        "title": "Seguimiento del procedimiento hasta sentencia o resolución en primera instancia."
+      }
+    ]
+  },
+  {
+    "title": "Modificación de medidas de mutuo acuerdo",
+    "budget": 1500,
+    "legalTasks": [
+      {
+        "title": "Estudio de antecedentes y de la documentación aportada."
+      },
+      {
+        "title": "Asesoramiento jurídico previo y durante toda la tramitación."
+      },
+      {
+        "title": "Tramitación de medios adecuados de solución de controversias (MASC) previos al procedimiento judicial."
+      },
+      {
+        "title": "Reuniones y negociaciones con la parte contraria para intentar alcanzar un acuerdo."
+      },
+      {
+        "title": "Redacción y tramitación de acuerdos de modificación de medidas."
+      },
+      {
+        "title": "Redacción y presentación de escritos de modificación de medidas de mutuo acuerdo."
+      },
+      {
+        "title": "Preparación de ratificación judicial y asistencia letrada ante el juzgado."
+      }
+    ]
+  },
+  {
+    "title": "Liquidación de sociedad de gananciales de mutuo acuerdo",
+    "budget": 3200,
+    "legalTasks": [
+      {
+        "title": "Estudio de antecedentes y de la documentación aportada."
+      },
+      {
+        "title": "Asesoramiento jurídico previo y durante toda la tramitación."
+      },
+      {
+        "title": "Negociación previa para la liquidación de la sociedad de gananciales."
+      },
+      {
+        "title": "Estudio patrimonial de bienes y deudas de la sociedad de gananciales."
+      },
+      {
+        "title": "Redacción de inventario de bienes y deudas."
+      },
+      {
+        "title": "Redacción, negociación y revisión del cuaderno de liquidación o cuaderno particional."
+      },
+      {
+        "title": "Elaboración de propuestas de adjudicación de bienes y deudas."
+      },
+      {
+        "title": "Redacción del acuerdo de liquidación del régimen económico matrimonial."
+      },
+      {
+        "title": "Preparación y revisión de escritura pública de liquidación de gananciales."
+      },
+      {
+        "title": "Coordinación con notaría para la firma."
+      },
+      {
+        "title": "Asistencia letrada en notaría para la firma de la liquidación."
+      },
+      {
+        "title": "Liquidación de impuestos derivados de la liquidación de gananciales."
+      },
+      {
+        "title": "Inscripción registral de los bienes adjudicados."
+      }
+    ]
+  },
+  {
+    "title": "Liquidación contenciosa de sociedad de gananciales",
+    "budget": 4500,
+    "legalTasks": [
+      {
+        "title": "Estudio de antecedentes y de la documentación aportada."
+      },
+      {
+        "title": "Asesoramiento jurídico previo y durante toda la tramitación."
+      },
+      {
+        "title": "Formación de inventario y asistencia a comparecencias."
+      },
+      {
+        "title": "Redacción, negociación y revisión del cuaderno de liquidación o cuaderno particional."
+      },
+      {
+        "title": "Elaboración de propuestas de adjudicación de bienes y deudas."
+      },
+      {
+        "title": "Redacción y presentación de demandas, solicitudes, escritos y demás actuaciones procesales necesarias."
+      },
+      {
+        "title": "Asistencia letrada a comparecencias, vistas, audiencias previas y juicios."
+      },
+      {
+        "title": "Defensa frente a impugnaciones, oposiciones o recursos, así como interposición de los que procedan."
+      }
+    ]
+  },
+  {
+    "title": "Procedimiento de desahucio",
+    "legalTasks": [
+      {
+        "title": "Estudio de antecedentes y de la documentación aportada."
+      },
+      {
+        "title": "Asesoramiento jurídico previo y durante toda la tramitación."
+      },
+      {
+        "title": "Tramitación de medios adecuados de solución de controversias (MASC) previos al procedimiento judicial."
+      },
+      {
+        "title": "Redacción y presentación de demanda de desahucio."
+      },
+      {
+        "title": "Asistencia letrada en juicio de desahucio."
+      }
+    ]
+  },
+  {
+    "title": "Ejecución hipotecaria",
+    "budget": 1500,
+    "legalTasks": [
+      {
+        "title": "Estudio de antecedentes y de la documentación aportada."
+      },
+      {
+        "title": "Asesoramiento jurídico previo y durante toda la tramitación."
+      },
+      {
+        "title": "Redacción de escritos para suspensión, aplazamiento o retraso del lanzamiento."
+      },
+      {
+        "title": "Impugnación de costas por indebidas o excesivas."
+      }
+    ]
+  },
+  {
+    "title": "Requerimiento previo mediante burofax / MASC",
+    "budget": 1500,
+    "legalTasks": [
+      {
+        "title": "Estudio de antecedentes y de la documentación aportada."
+      },
+      {
+        "title": "Asesoramiento jurídico previo y durante toda la tramitación."
+      },
+      {
+        "title": "Redacción y presentación de requerimientos, comunicaciones previas y burofaxes."
+      },
+      {
+        "title": "Tramitación de medios adecuados de solución de controversias (MASC) previos al procedimiento judicial."
+      },
+      {
+        "title": "Fundamentación jurídica del incumplimiento contractual."
+      },
+      {
+        "title": "Seguimiento de la respuesta de la parte requerida tras requerimiento formal."
+      },
+      {
+        "title": "Certificación o acreditación del intento de solución extrajudicial a efectos procesales."
+      }
+    ]
+  },
+  {
+    "title": "Procedimiento judicial de elevación a público de contrato privado",
+    "budget": 4250,
+    "legalTasks": [
+      {
+        "title": "Estudio de antecedentes y de la documentación aportada."
+      },
+      {
+        "title": "Asesoramiento jurídico previo y durante toda la tramitación."
+      },
+      {
+        "title": "Redacción y presentación de demanda de juicio ordinario."
+      },
+      {
+        "title": "Reclamación para elevación a público de contrato privado."
+      },
+      {
+        "title": "Fundamentación jurídica del incumplimiento contractual."
+      },
+      {
+        "title": "Redacción de escritos procesales complementarios necesarios durante la primera instancia."
+      },
+      {
+        "title": "Asistencia letrada a comparecencias, vistas, audiencias previas y juicios."
+      },
+      {
+        "title": "Seguimiento del procedimiento hasta sentencia o resolución en primera instancia."
+      }
+    ]
+  },
+  {
+    "title": "Elevación a público de contrato privado de compraventa",
+    "budget": 1800,
+    "legalTasks": [
+      {
+        "title": "Estudio de antecedentes y de la documentación aportada."
+      },
+      {
+        "title": "Asesoramiento jurídico previo y durante toda la tramitación."
+      },
+      {
+        "title": "Preparación, redacción, revisión y tramitación de escrituras públicas."
+      }
+    ]
+  },
+  {
+    "title": "Donación",
+    "legalTasks": [
+      {
+        "title": "Estudio de antecedentes y de la documentación aportada."
+      },
+      {
+        "title": "Asesoramiento jurídico previo y durante toda la tramitación."
+      },
+      {
+        "title": "Preparación, redacción y tramitación de escrituras de donación."
+      },
+      {
+        "title": "Liquidación del Impuesto sobre Donaciones."
+      }
+    ]
+  },
+  {
+    "title": "Denuncia penal / violencia de género",
+    "budget": 1250,
+    "legalTasks": [
+      {
+        "title": "Estudio de antecedentes y de la documentación aportada."
+      },
+      {
+        "title": "Asesoramiento jurídico previo y durante toda la tramitación."
+      },
+      {
+        "title": "Redacción y presentación de denuncia."
+      },
+      {
+        "title": "Acompañamiento a interposición de denuncia."
+      },
+      {
+        "title": "Asistencia y representación en procedimiento penal."
+      }
+    ]
+  }
+]
