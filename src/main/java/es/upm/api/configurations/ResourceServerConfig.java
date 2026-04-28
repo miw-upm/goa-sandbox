@@ -12,7 +12,6 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static es.upm.api.adapter.in.resources.EngagementLetterResource.ENGAGEMENT_LETTER;
 import static es.upm.api.adapter.in.resources.SystemResource.SYSTEM;
 import static es.upm.api.adapter.in.resources.SystemResource.VERSION_BADGE;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
@@ -40,24 +39,12 @@ public class ResourceServerConfig {  // validate tokens y security APIs con SCOP
 
     @Bean
     @Order(2)
-    public SecurityFilterChain documentViewSecurityConfig(HttpSecurity http) throws Exception {
-        return http
-                .securityMatcher(ENGAGEMENT_LETTER + "/view/**", ENGAGEMENT_LETTER + "/sign-engagement-letter/**")
-                .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-                .build();
-    }
-
-    @Bean
-    @Order(3)
     public SecurityFilterChain apiSecurityConfig(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/actuator/health").permitAll()
-                        .requestMatchers("/public/engagement-letters/**").permitAll()
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated()
                 )

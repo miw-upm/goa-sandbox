@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 8088
 
 info:
   app:
@@ -9,7 +9,7 @@ info:
 
 spring:
   application:
-    name: goa-engagement
+    name: goa-sandbox
   profiles:
     default: dev
   output:
