@@ -1,0 +1,9 @@
+### Prueba de creación directa (Sin Seguridad)
+POST http://localhost:8088/complaints
+Content-Type: application/json
+
+{
+  "barcode": "84123456789",
+  "mobile": "600112233",
+  "description": "Prueba de persistencia en MongoDB"
+}
