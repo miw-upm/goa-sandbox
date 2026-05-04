@@ -3,7 +3,7 @@ services:
     build:
       context: .
       secrets: [ github_token ]
-    ports: [ "8088" ] # Don't expose the container port
+    ports: [ "8088:8088" ]
     environment:
       JAVA_OPTS: "-Xms64m -Xmx384m"
       SPRING_DATA_MONGODB_URI: mongodb://mongo:mongo@mongo:27017/goasandboxdb?authSource=admin
