@@ -21,27 +21,29 @@ public class ComplaintService {
     }
 
     public Complaint create(Complaint complaint) {
-        // 1. Validar que los datos mínimos vienen presentes
-        if (complaint.getBarcode() == null || complaint.getUserId() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Barcode y UserId son obligatorios");
+        // 1. Validación de campos obligatorios (Barcode = Hoja de Encargo, Mobile = ID Cliente)
+        if (complaint.getBarcode() == null || complaint.getMobile() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "El ID de la Hoja de Encargo (barcode) y del Cliente (mobile) son obligatorios");
         }
 
-        // 2. Generar el ID único basado en el alcance: barcode + userId + state
-        // Usamos OPEN porque es el estado inicial obligatorio
-        String generatedId = complaint.getBarcode() + "-" + complaint.getUserId() + "-" + ComplaintState.OPEN;
+        // 2. Generar el Hash ID único
+        // Usamos DigestUtils (de org.apache.commons.codec.digest) o String.hashCode() simple
+        // Aquí lo hacemos robusto:
+        String rawId = complaint.getBarcode() + complaint.getMobile() + ComplaintState.OPEN;
+        String generatedId = org.apache.commons.codec.digest.DigestUtils.sha256Hex(rawId);
         complaint.setId(generatedId);
 
-        // 3. Garantizar que solo exista una queja OPEN (regla de negocio)
-        // Si el read(id) encuentra algo, significa que ya hay una queja OPEN para este producto/usuario
+        // 3. Regla de Negocio: Solo una queja OPEN por Hoja de Encargo y Cliente
         if (this.complaintRepository.read(generatedId).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
-                    "Ya existe una queja abierta para este producto y usuario");
+                    "Ya existe una queja abierta para esta Hoja de Encargo");
         }
 
-        // 4. Configurar valores por defecto para una nueva queja
+        // 4. Configurar valores por defecto
         complaint.setRegistrationDate(LocalDateTime.now());
-        complaint.setState(ComplaintState.OPEN);
-        complaint.setReply(null); // No hay respuesta al crearla
+        complaint.setState(ComplaintState.OPEN); // Aseguramos que se guarda como OPEN
+        complaint.setReply(null);
 
         // 5. Persistir
         return this.complaintRepository.create(complaint);
