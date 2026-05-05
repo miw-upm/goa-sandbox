@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:4200") // Permite que Angular (4200) hable con el Back (8088)
 @RestController
 @RequestMapping("/complaints") // La ruta real será /api/goa-sandbox/complaints por el Gateway
 public class ComplaintResource {

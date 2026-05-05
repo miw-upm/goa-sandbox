@@ -26,15 +26,20 @@ class ComplaintServiceTest {
 
     @Test
     void testCreateDuplicateComplaintThrowsConflict() {
+        // Arrange
         Complaint complaint = new Complaint();
-        complaint.setBarcode("123");
-        complaint.setUserId("user1");
+        complaint.setBarcode("HE1");
+        complaint.setMobile("600000000");
 
-        // Simulamos que la queja ya existe en la BD
+        // Solo simulamos el read porque es lo que detendrá el flujo
         when(complaintRepository.read(anyString())).thenReturn(Optional.of(complaint));
 
+        // Act & Assert
         assertThrows(ResponseStatusException.class, () -> {
             complaintService.create(complaint);
         });
+
+        // Opcional: verificar que NUNCA se llamó al save
+        verify(complaintRepository, never()).create(any());
     }
 }
