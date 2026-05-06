@@ -58,10 +58,12 @@ public class ReviewService {
      * Reads the review belonging to the given userId and letterId.
      * Throws NOT_FOUND if no such review exists.
      */
-    public Optional<Review> readByUserIdAndLetterId(String userId, String letterId) {
+    public Review readByUserIdAndLetterId(String userId, String letterId) {
         validateUserId(userId);
         validateLetterId(letterId);
-        return this.reviewRepository.findByUserIdAndLetterId(userId, letterId);
+        return this.reviewRepository.findByUserIdAndLetterId(userId, letterId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Review not found"));
     }
 
     private void validateUserId(String userId) {

@@ -6,7 +6,6 @@ import es.upm.api.domain.model.Review;
 import es.upm.api.domain.services.ReviewService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -68,11 +67,9 @@ public class ReviewResource {
      */
     @GetMapping("/{letterId}")
     @PreAuthorize("hasRole('CUSTOMER')")
-    public ResponseEntity<Review> read(@PathVariable String letterId,
-                                        @AuthenticationPrincipal Jwt jwt) {
+    public Review read(@PathVariable String letterId,
+                       @AuthenticationPrincipal Jwt jwt) {
         String userId = jwt.getClaimAsString("username");
-        return this.reviewService.readByUserIdAndLetterId(userId, letterId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return this.reviewService.readByUserIdAndLetterId(userId, letterId);
     }
 }
