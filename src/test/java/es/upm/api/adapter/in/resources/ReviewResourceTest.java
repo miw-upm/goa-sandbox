@@ -29,15 +29,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Resource-layer unit tests for ReviewResource.
  * Uses @WebMvcTest to slice only the web layer — no full Spring context, no MongoDB.
- * The two ApiExceptionHandler beans from the full app are excluded to avoid bean conflict
- * in the test slice; the one in es.upm.api.adapter.in.resources is sufficient.
+ * The ApiExceptionHandler bean is excluded from the test slice via
+ * @ComponentScan.Filter to avoid duplicate bean registration.
  */
 @WebMvcTest(
         controllers = ReviewResource.class,
         excludeFilters = @ComponentScan.Filter(
                 type = FilterType.ASSIGNABLE_TYPE,
                 classes = {
-                        es.upm.api.adapter.in.resources.httperrors.ApiExceptionHandler.class
+                        es.upm.api.infrastructure.resources.httperrors.ApiExceptionHandler.class
                 }
         )
 )
@@ -199,7 +199,7 @@ class ReviewResourceTest {
     // -------------------------------------------------------------------------
 
     @Test
-    void postReview_withAdminRole_returnsUnauthorized() throws Exception {
+    void postReview_withAdminRole_returnsForbidden() throws Exception {
         String body = """
                 {"letterId": "LTR-001", "stars": 5, "opinion": "Great service"}
                 """;
@@ -212,13 +212,13 @@ class ReviewResourceTest {
                                 .authorities(new SimpleGrantedAuthority("ROLE_ADMIN")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isForbidden());
 
         verifyNoInteractions(reviewService);
     }
 
     @Test
-    void postReview_withManagerRole_returnsUnauthorized() throws Exception {
+    void postReview_withManagerRole_returnsForbidden() throws Exception {
         String body = """
                 {"letterId": "LTR-001", "stars": 5, "opinion": "Great service"}
                 """;
@@ -231,7 +231,7 @@ class ReviewResourceTest {
                                 .authorities(new SimpleGrantedAuthority("ROLE_MANAGER")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isForbidden());
 
         verifyNoInteractions(reviewService);
     }
