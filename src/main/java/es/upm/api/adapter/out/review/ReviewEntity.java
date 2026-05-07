@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
@@ -12,6 +13,11 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @Document(collection = "reviews")
+@CompoundIndex(
+        name = "userId_letterId_unique",
+        def = "{'userId': 1, 'letterId': 1}",
+        unique = true
+)
 public class ReviewEntity {
     @Id
     private String id;
