@@ -15,14 +15,13 @@ import org.springframework.web.bind.annotation.*;
  * ReviewResource — customer-scoped review management.
  *
  * All endpoints are scoped to the authenticated user via JWT.
- * userId is ALWAYS extracted from the JWT username claim, never from the request body.
+ * userId is ALWAYS extracted from the JWT sub claim, never from the request body.
  *
  * Ownership validation: this implementation does NOT verify that the given letterId
  * belongs to the authenticated user. goa-sandbox currently has no EngagementLetter
  * entity and no goa-engagement Feign client to perform such validation.
  * This limitation is documented and deferred to a later integration step (M7).
  */
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/reviews")
 public class ReviewResource {
@@ -42,7 +41,7 @@ public class ReviewResource {
     @PreAuthorize("hasRole('CUSTOMER')")
     public Review createOrUpdate(@Valid @RequestBody ReviewCreateDto dto,
                                  @AuthenticationPrincipal Jwt jwt) {
-        String userId = jwt.getClaimAsString("username");
+        String userId = jwt.getClaimAsString("sub");
         return this.reviewService.createOrUpdate(userId, dto.getLetterId(),
                 dto.getStars(), dto.getOpinion());
     }
@@ -56,7 +55,7 @@ public class ReviewResource {
     public Review update(@PathVariable String letterId,
                          @Valid @RequestBody ReviewUpdateDto dto,
                          @AuthenticationPrincipal Jwt jwt) {
-        String userId = jwt.getClaimAsString("username");
+        String userId = jwt.getClaimAsString("sub");
         return this.reviewService.createOrUpdate(userId, letterId,
                 dto.getStars(), dto.getOpinion());
     }
@@ -69,7 +68,7 @@ public class ReviewResource {
     @PreAuthorize("hasRole('CUSTOMER')")
     public Review read(@PathVariable String letterId,
                        @AuthenticationPrincipal Jwt jwt) {
-        String userId = jwt.getClaimAsString("username");
+        String userId = jwt.getClaimAsString("sub");
         return this.reviewService.readByUserIdAndLetterId(userId, letterId);
     }
 }
