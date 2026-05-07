@@ -32,14 +32,21 @@ public class ApiExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({
-            NoResourceFoundException.class,
-            ResponseStatusException.class
-
+            NoResourceFoundException.class
     })
     @ResponseBody
-    public ErrorMessage noResourceFoundRequest(Exception exception) {
+    public ErrorMessage noResourceFoundRequest(NoResourceFoundException exception) {
         return new ErrorMessage(new NotFoundException(
                 "Path no encontrado... **/actuator/info, **/swagger-ui.html, **/v3/api-docs, .well-known/openid-configuration"));
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler({
+            ResponseStatusException.class
+    })
+    @ResponseBody
+    public ErrorMessage responseStatusExceptionResponse(ResponseStatusException exception) {
+        return new ErrorMessage(exception);
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
