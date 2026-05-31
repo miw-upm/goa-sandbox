@@ -58,13 +58,15 @@ public class ComplaintEntity {
         return mobile;
     }
 
-    public void setAmount(String mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 
     public Status getStatus() {
         return status;
     }
+
+    public void setStatus(Status status) { this.status = status; }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
