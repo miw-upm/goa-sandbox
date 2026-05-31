@@ -1,0 +1,77 @@
+package es.upm.api.domain.services;
+
+import es.upm.api.domain.model.Complaint;
+import es.upm.api.domain.model.Status; // Asegúrate de importar tu enum Status
+import es.upm.api.domain.persistence.ComplaintPersistence;
+import es.upm.api.domain.webclients.EngagementWebClient;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+@SpringBootTest
+@ActiveProfiles("test")
+class ComplaintServiceIT {
+
+    @Autowired
+    private ComplaintService complaintService;
+
+    @MockitoBean
+    private ComplaintPersistence complaintPersistence;
+
+    @MockitoBean
+    private EngagementWebClient engagementWebClient;
+
+    private Complaint complaint;
+
+    @BeforeEach
+    void setUp() {
+        this.complaint = Complaint.builder()
+                .engagementId(UUID.randomUUID())
+                .description("Service not as described")
+                .status(Status.OPEN)
+                .createdAt(LocalDateTime.of(2026, 5, 31, 10, 0))
+                .build();
+    }
+
+    @Test
+    void shouldCreateComplaint() {
+        when(this.engagementWebClient.readById(this.complaint.getEngagementId())).thenReturn(new Object());
+
+        Complaint createdComplaint = this.complaintService.create(this.complaint);
+
+        assertNotNull(createdComplaint);
+        assertNotNull(createdComplaint.getId());
+        assertEquals(this.complaint.getEngagementId(), createdComplaint.getEngagementId());
+        assertEquals(this.complaint.getDescription(), createdComplaint.getDescription());
+        assertEquals(this.complaint.getCreatedAt(), createdComplaint.getCreatedAt());
+        assertEquals(this.complaint.getStatus(), createdComplaint.getStatus());
+
+        ArgumentCaptor<Complaint> complaintCaptor = ArgumentCaptor.forClass(Complaint.class);
+        verify(this.complaintPersistence).create(complaintCaptor.capture());
+        verify(this.engagementWebClient).readById(this.complaint.getEngagementId());
+
+        Complaint persistedComplaint = complaintCaptor.getValue();
+        assertEquals(createdComplaint.getId(), persistedComplaint.getId());
+    }
+
+    @Test
+    void shouldNotPersistComplaintWhenEngagementDoesNotExist() {
+        RuntimeException exception = new RuntimeException("Engagement not found");
+        when(this.engagementWebClient.readById(this.complaint.getEngagementId())).thenThrow(exception);
+
+        assertThrows(RuntimeException.class, () -> this.complaintService.create(this.complaint));
+
+        verify(this.engagementWebClient).readById(this.complaint.getEngagementId());
+        verify(this.complaintPersistence, never()).create(any());
+    }
+}
