@@ -27,6 +27,10 @@ spring:
 
 app:
   hosting: localhost
+  administration:
+    name: Administración
+    email: j.bernal@upm.es
+  iban: ${IBAN:ES00 1111 2222 3333 4444 5555}
   oauth2:
     token-uri: ${BASE_URL:http://localhost:8080}/api/goa-user/oauth2/token
     api-client-id: ${API_CLIENT_ID:api-client-id}
@@ -44,7 +48,8 @@ management:
 logging:
   level:
     root: WARN
-    es.upm.api: DEBUG
+    es.upm: DEBUG
+    org.springframework.security: WARN
 
 eureka:
   instance:
