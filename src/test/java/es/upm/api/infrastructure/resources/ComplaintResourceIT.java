@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import es.upm.api.domain.model.Complaint;
 import es.upm.api.domain.model.Status;
 import es.upm.api.domain.services.ComplaintService;
+import es.upm.miw.exception.NotFoundException;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,5 +173,48 @@ class ComplaintResourceIT {
                 .andExpect(jsonPath("$.[0].createdAt").value("2026-03-20T10:00:00"));
 
         verify(this.complaintService).findAll();
+    }
+
+    @Test
+    @WithMockUser(roles = "admin")
+    void shouldReadComplaintById() throws Exception {
+        UUID complaintId = UUID.randomUUID();
+        UUID engagementId = UUID.randomUUID();
+        LocalDateTime createdAt = LocalDateTime.of(2026, 3, 20, 10, 0);
+
+        Complaint response = Complaint.builder()
+                .id(complaintId)
+                .engagementId(engagementId)
+                .mobile("600123456")
+                .description("Problema técnico")
+                .status(Status.OPEN)
+                .createdAt(createdAt)
+                .build();
+
+        when(this.complaintService.readById(complaintId)).thenReturn(response);
+
+        this.mockMvc.perform(get("/complaints/{id}", complaintId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(complaintId.toString()))
+                .andExpect(jsonPath("$.engagementId").value(engagementId.toString()))
+                .andExpect(jsonPath("$.mobile").value("600123456"))
+                .andExpect(jsonPath("$.description").value("Problema técnico"))
+                .andExpect(jsonPath("$.status").value("OPEN"))
+                .andExpect(jsonPath("$.createdAt").value("2026-03-20T10:00:00"));
+
+        verify(this.complaintService).readById(complaintId);
+    }
+
+    @Test
+    @WithMockUser(roles = "admin")
+    void shouldReturnNotFoundWhenComplaintDoesNotExist() throws Exception {
+        UUID complaintId = UUID.randomUUID();
+        when(this.complaintService.readById(eq(complaintId)))
+                .thenThrow(new NotFoundException("Complaint id: " + complaintId));
+
+        this.mockMvc.perform(get("/complaints/{id}", complaintId))
+                .andExpect(status().isNotFound());
+
+        verify(this.complaintService).readById(complaintId);
     }
 }

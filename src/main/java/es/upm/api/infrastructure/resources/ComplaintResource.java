@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 import java.util.stream.Stream;
 
 @RestController
@@ -26,6 +28,12 @@ public class ComplaintResource {
     @Operation(summary = "Create complaint")
     public Complaint create(@Valid @RequestBody Complaint complaint) {
         return this.complaintService.create(complaint);
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Read complaint by id")
+    public Complaint readById(@PathVariable UUID id) {
+        return this.complaintService.readById(id);
     }
 
     @GetMapping

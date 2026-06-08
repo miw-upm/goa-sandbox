@@ -86,4 +86,16 @@ class ComplaintServiceIT {
         verify(this.complaintPersistence).findAll();
         assertEquals(this.complaint, allComplaints.findFirst().orElse(null));
     }
+
+    @Test
+    void shouldReadComplaintById() {
+        this.complaint.setId(UUID.randomUUID());
+        when(this.complaintPersistence.readById(this.complaint.getId())).thenReturn(this.complaint);
+
+        Complaint readComplaint = this.complaintService.readById(this.complaint.getId());
+
+        assertEquals(this.complaint, readComplaint);
+        verify(this.complaintPersistence).readById(this.complaint.getId());
+        verifyNoInteractions(this.engagementWebClient);
+    }
 }

@@ -4,6 +4,7 @@ import es.upm.api.domain.model.Complaint;
 import es.upm.api.domain.model.Status;
 import es.upm.api.infrastructure.mongodb.entities.ComplaintEntity;
 import es.upm.api.infrastructure.mongodb.repositories.ComplaintRepository;
+import es.upm.miw.exception.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -13,6 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
 import java.util.List;
@@ -85,5 +87,28 @@ class ComplaintPersistenceMongodbIT {
         verify(this.complaintRepository).findAll(ComplaintPersistenceMongodb.CREATEDAT);
 
         assertEquals(this.complaint, complaintStream.findFirst().orElse(null));
+    }
+
+    @Test
+    void shouldReadComplaintById() {
+        when(this.complaintRepository.findById(this.complaint.getId()))
+                .thenReturn(Optional.of(new ComplaintEntity(this.complaint)));
+
+        Complaint readComplaint = this.complaintPersistenceMongodb.readById(this.complaint.getId());
+
+        assertEquals(this.complaint, readComplaint);
+        verify(this.complaintRepository).findById(this.complaint.getId());
+    }
+
+    @Test
+    void shouldThrowNotFoundExceptionWhenComplaintDoesNotExist() {
+        when(this.complaintRepository.findById(this.complaint.getId()))
+                .thenReturn(Optional.empty());
+
+        NotFoundException thrown = assertThrows(NotFoundException.class,
+                () -> this.complaintPersistenceMongodb.readById(this.complaint.getId()));
+
+        assertEquals("Not Found Exception. Complaint id: " + this.complaint.getId(), thrown.getMessage());
+        verify(this.complaintRepository).findById(this.complaint.getId());
     }
 }
