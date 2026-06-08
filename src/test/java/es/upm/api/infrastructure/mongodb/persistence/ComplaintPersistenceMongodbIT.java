@@ -111,4 +111,28 @@ class ComplaintPersistenceMongodbIT {
         assertEquals("Not Found Exception. Complaint id: " + this.complaint.getId(), thrown.getMessage());
         verify(this.complaintRepository).findById(this.complaint.getId());
     }
+
+    @Test
+    void shouldUpdateComplaint() {
+        Complaint updatedComplaint = Complaint.builder()
+                .id(this.complaint.getId())
+                .engagementId(UUID.randomUUID())
+                .mobile("600999888")
+                .description("Descripción actualizada")
+                .status(Status.IN_PROGRESS)
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        when(this.complaintRepository.findById(this.complaint.getId()))
+                .thenReturn(Optional.of(new ComplaintEntity(this.complaint)));
+
+        when(this.complaintRepository.save(any(ComplaintEntity.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        Complaint persistedComplaint = this.complaintPersistenceMongodb.update(this.complaint.getId(), updatedComplaint);
+
+        assertEquals(updatedComplaint, persistedComplaint);
+        verify(this.complaintRepository).findById(this.complaint.getId());
+        verify(this.complaintRepository).save(any(ComplaintEntity.class));
+    }
 }
