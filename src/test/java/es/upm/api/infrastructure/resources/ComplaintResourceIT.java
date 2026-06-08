@@ -14,9 +14,11 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -140,5 +142,35 @@ class ComplaintResourceIT {
                 .andExpect(status().isBadRequest());
 
         verify(this.complaintService, never()).create(any());
+    }
+
+    @Test
+    @WithMockUser(roles = "admin")
+    void shouldFindAllWithValues() throws Exception {
+        UUID complaintId = UUID.randomUUID();
+        UUID engagementId = UUID.randomUUID();
+        LocalDateTime now = LocalDateTime.of(2026, 3, 20, 10, 0);
+
+        Complaint response = Complaint.builder()
+                .id(complaintId)
+                .engagementId(engagementId)
+                .mobile("600123456")
+                .description("Problema con el servicio")
+                .status(Status.OPEN)
+                .createdAt(now)
+                .build();
+
+        when(this.complaintService.findAll()).thenReturn(Stream.of(response));
+
+        this.mockMvc.perform(get("/complaints"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.[0].id").value(complaintId.toString()))
+                .andExpect(jsonPath("$.[0].engagementId").value(engagementId.toString()))
+                .andExpect(jsonPath("$.[0].mobile").value("600123456"))
+                .andExpect(jsonPath("$.[0].description").value("Problema con el servicio"))
+                .andExpect(jsonPath("$.[0].status").value("OPEN"))
+                .andExpect(jsonPath("$.[0].createdAt").value("2026-03-20T10:00:00"));
+
+        verify(this.complaintService).findAll();
     }
 }

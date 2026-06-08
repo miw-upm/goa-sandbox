@@ -6,6 +6,7 @@ import es.upm.api.domain.webclients.EngagementWebClient;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @Service
 public class ComplaintService {
@@ -23,5 +24,9 @@ public class ComplaintService {
         this.engagementWebClient.readById(complaint.getEngagementId());
         this.complaintPersistence.create(complaint);
         return complaint;
+    }
+
+    public Stream<Complaint> findAll() {
+        return this.complaintPersistence.findAll();
     }
 }

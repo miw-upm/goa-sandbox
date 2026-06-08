@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping(ComplaintResource.COMPLAINTS)
@@ -22,8 +23,13 @@ public class ComplaintResource {
     }
 
     @PostMapping
-    @Operation(summary = "Create expense")
+    @Operation(summary = "Create complaint")
     public Complaint create(@Valid @RequestBody Complaint complaint) {
         return this.complaintService.create(complaint);
+    }
+
+    @GetMapping
+    public Stream<Complaint> findAll() {
+        return this.complaintService.findAll();
     }
 }
