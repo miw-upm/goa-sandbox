@@ -14,6 +14,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -73,5 +74,16 @@ class ComplaintServiceIT {
 
         verify(this.engagementWebClient).readById(this.complaint.getEngagementId());
         verify(this.complaintPersistence, never()).create(any());
+    }
+
+    @Test
+    void shouldFindAll() {
+        Stream<Complaint> complaintStream = Stream.of(this.complaint);
+        when(this.complaintPersistence.findAll()).thenReturn(complaintStream);
+
+        Stream<Complaint> allComplaints = this.complaintService.findAll();
+
+        verify(this.complaintPersistence).findAll();
+        assertEquals(this.complaint, allComplaints.findFirst().orElse(null));
     }
 }

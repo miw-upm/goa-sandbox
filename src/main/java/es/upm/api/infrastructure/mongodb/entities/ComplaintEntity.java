@@ -5,6 +5,10 @@ import es.upm.api.domain.model.Complaint;
 import es.upm.api.domain.model.Status;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,6 +18,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Document
 public class ComplaintEntity {
     @Id
@@ -24,10 +32,6 @@ public class ComplaintEntity {
     private Status status; // Enum: OPEN, IN_PROGRESS, RESOLVED, etc.
     private LocalDateTime createdAt;
 
-    public ComplaintEntity() {
-        // Empty for framework
-    }
-
     public ComplaintEntity(Complaint complaint) {
         BeanUtils.copyProperties(complaint, this);
     }
@@ -36,51 +40,5 @@ public class ComplaintEntity {
         Complaint complaint = new Complaint();
         BeanUtils.copyProperties(this, complaint);
         return complaint;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public UUID getEngagementId() {
-        return engagementId;
-    }
-
-    public void setEngagementId(UUID engagementId) {
-        this.engagementId = engagementId;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) { this.status = status; }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 }

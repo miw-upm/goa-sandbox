@@ -14,6 +14,8 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.stream.Stream;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -71,5 +73,17 @@ class ComplaintPersistenceMongodbIT {
                 () -> this.complaintPersistenceMongodb.create(this.complaint));
 
         verify(this.complaintRepository).save(any(ComplaintEntity.class));
+    }
+
+    @Test
+    void shouldFindAll() {
+        when(this.complaintRepository.findAll(ComplaintPersistenceMongodb.CREATEDAT))
+                .thenReturn(List.of(new ComplaintEntity(this.complaint)));
+
+        Stream<Complaint> complaintStream = this.complaintPersistenceMongodb.findAll();
+
+        verify(this.complaintRepository).findAll(ComplaintPersistenceMongodb.CREATEDAT);
+
+        assertEquals(this.complaint, complaintStream.findFirst().orElse(null));
     }
 }
