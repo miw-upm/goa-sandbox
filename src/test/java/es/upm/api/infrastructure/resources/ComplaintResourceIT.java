@@ -15,7 +15,10 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -216,5 +219,67 @@ class ComplaintResourceIT {
                 .andExpect(status().isNotFound());
 
         verify(this.complaintService).readById(complaintId);
+    }
+
+    @Test
+    @WithMockUser(roles = "admin")
+    void shouldUpdateComplaint() throws Exception {
+        UUID complaintId = UUID.randomUUID();
+        UUID engagementId = UUID.randomUUID();
+        LocalDateTime createdAt = LocalDateTime.of(2026, 3, 25, 10, 0);
+
+        String requestBody = """
+                {
+                  "engagementId": "%s",
+                  "mobile": "600123456",
+                  "description": "Descripción actualizada",
+                  "status": "IN_PROGRESS",
+                  "createdAt": "2026-03-25T10:00:00"
+                }
+                """.formatted(engagementId);
+
+        Complaint response = Complaint.builder()
+                .id(complaintId)
+                .engagementId(engagementId)
+                .mobile("600123456")
+                .description("Descripción actualizada")
+                .status(Status.IN_PROGRESS)
+                .createdAt(createdAt)
+                .build();
+
+        when(this.complaintService.update(eq(complaintId), any(Complaint.class))).thenReturn(response);
+
+        this.mockMvc.perform(put("/complaints/{id}", complaintId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(complaintId.toString()))
+                .andExpect(jsonPath("$.engagementId").value(engagementId.toString()))
+                .andExpect(jsonPath("$.mobile").value("600123456"))
+                .andExpect(jsonPath("$.description").value("Descripción actualizada"))
+                .andExpect(jsonPath("$.status").value("IN_PROGRESS"))
+                .andExpect(jsonPath("$.createdAt").value("2026-03-25T10:00:00"));
+
+        verify(this.complaintService).update(eq(complaintId), any(Complaint.class));
+    }
+
+    @Test
+    @WithMockUser(roles = "admin")
+    void shouldReturnBadRequestWhenUpdatingComplaintWithMissingData() throws Exception {
+        UUID complaintId = UUID.randomUUID();
+        // Cuerpo inválido: falta la descripción (obligatoria)
+        String requestBody = """
+                {
+                  "engagementId": "%s",
+                  "mobile": "600123456"
+                }
+                """.formatted(UUID.randomUUID());
+
+        this.mockMvc.perform(put("/complaints/{id}", complaintId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isBadRequest());
+
+        verify(this.complaintService, never()).update(any(), any());
     }
 }

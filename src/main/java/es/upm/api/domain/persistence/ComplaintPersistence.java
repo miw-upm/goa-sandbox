@@ -12,5 +12,7 @@ public interface ComplaintPersistence {
 
     Complaint readById(UUID id);
 
+    Complaint update(UUID id, Complaint complaint);
+
     Stream<Complaint> findAll();
 }

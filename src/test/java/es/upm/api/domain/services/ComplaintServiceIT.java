@@ -4,6 +4,7 @@ import es.upm.api.domain.model.Complaint;
 import es.upm.api.domain.model.Status; // Asegúrate de importar tu enum Status
 import es.upm.api.domain.persistence.ComplaintPersistence;
 import es.upm.api.domain.webclients.EngagementWebClient;
+import es.upm.miw.exception.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -97,5 +98,46 @@ class ComplaintServiceIT {
         assertEquals(this.complaint, readComplaint);
         verify(this.complaintPersistence).readById(this.complaint.getId());
         verifyNoInteractions(this.engagementWebClient);
+    }
+
+    @Test
+    void shouldUpdateComplaint() {
+        UUID complaintId = UUID.randomUUID();
+        this.complaint.setId(complaintId);
+
+        // Mock de lectura inicial
+        when(this.complaintPersistence.readById(complaintId)).thenReturn(this.complaint);
+        // Mock de validación externa (Engagement)
+        when(this.engagementWebClient.readById(this.complaint.getEngagementId())).thenReturn(new Object());
+        // Mock de actualización
+        when(this.complaintPersistence.update(complaintId, this.complaint)).thenReturn(this.complaint);
+
+        Complaint updatedComplaint = this.complaintService.update(complaintId, this.complaint);
+
+        assertEquals(complaintId, updatedComplaint.getId());
+        assertEquals(this.complaint.getEngagementId(), updatedComplaint.getEngagementId());
+        assertEquals(this.complaint.getMobile(), updatedComplaint.getMobile());
+        assertEquals(this.complaint.getDescription(), updatedComplaint.getDescription());
+        assertEquals(this.complaint.getStatus(), updatedComplaint.getStatus());
+        assertEquals(this.complaint.getCreatedAt(), updatedComplaint.getCreatedAt());
+
+        verify(this.complaintPersistence).readById(complaintId);
+        verify(this.engagementWebClient).readById(this.complaint.getEngagementId());
+        verify(this.complaintPersistence).update(complaintId, this.complaint);
+    }
+
+    @Test
+    void shouldNotUpdateComplaintWhenItDoesNotExist() {
+        UUID complaintId = UUID.randomUUID();
+        when(this.complaintPersistence.readById(complaintId))
+                .thenThrow(new NotFoundException("Complaint id: " + complaintId));
+
+        NotFoundException thrown = assertThrows(NotFoundException.class,
+                () -> this.complaintService.update(complaintId, this.complaint));
+
+        assertEquals("Not Found Exception. Complaint id: " + complaintId, thrown.getMessage());
+        verify(this.complaintPersistence).readById(complaintId);
+        verifyNoInteractions(this.engagementWebClient);
+        verify(this.complaintPersistence, never()).update(any(), any());
     }
 }

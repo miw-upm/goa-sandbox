@@ -33,8 +33,24 @@ public class ComplaintPersistenceMongodb implements ComplaintPersistence {
                 .orElseThrow(() -> new NotFoundException("Complaint id: " + id));
     }
 
+    @Override
+    public Complaint update(UUID id, Complaint complaint) {
+        ComplaintEntity complaintEntity = this.complaintRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Complaint id: " + id));
+        // Mapeo de campos de actualización
+        complaintEntity.setEngagementId(complaint.getEngagementId());
+        complaintEntity.setMobile(complaint.getMobile());
+        complaintEntity.setDescription(complaint.getDescription());
+        complaintEntity.setStatus(complaint.getStatus());
+        complaintEntity.setCreatedAt(complaint.getCreatedAt());
+
+        return this.complaintRepository.save(complaintEntity).toComplaint();
+    }
+
     public Stream<Complaint> findAll() {
         return this.complaintRepository.findAll(CREATEDAT).stream()
                 .map(ComplaintEntity::toComplaint);
     }
+
+
 }
