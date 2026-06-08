@@ -29,4 +29,8 @@ public class ComplaintService {
     public Stream<Complaint> findAll() {
         return this.complaintPersistence.findAll();
     }
+
+    public Complaint readById(UUID id) {
+        return this.complaintPersistence.readById(id);
+    }
 }
