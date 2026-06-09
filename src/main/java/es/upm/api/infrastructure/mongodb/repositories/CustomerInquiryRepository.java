@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CustomerInquiryRepository extends MongoRepository<CustomerInquiryEntity, UUID> {
-    List<CustomerInquiryEntity> findByCustomer(String customer);
+    List<CustomerInquiryEntity> findByCustomerMobile(String customerMobile);
 
-    Optional<CustomerInquiryEntity> findByCustomerAndState(String customer, InquiryState state);
+    Optional<CustomerInquiryEntity> findByCustomerMobileAndState(String customerMobile, InquiryState state);
 }

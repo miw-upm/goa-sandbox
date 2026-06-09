@@ -21,7 +21,7 @@ public class CustomerInquiry {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm[:ss]")
     private LocalDateTime registrationDate;
 
-    private String customer;
+    private String customerMobile;
 
     @NotBlank(message = "Subject is mandatory")
     private String subject;
@@ -36,7 +36,7 @@ public class CustomerInquiry {
 
     private String reply;
 
-    private String repliedBy;
+    private String repliedByMobile;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm[:ss]")
     private LocalDateTime replyDate;

@@ -43,8 +43,8 @@ public class CustomerInquiryPersistenceMongodb implements CustomerInquiryPersist
     }
 
     @Override
-    public Stream<CustomerInquiry> findByCustomer(String customer) {
-        return this.customerInquiryRepository.findByCustomer(customer).stream()
+    public Stream<CustomerInquiry> findByCustomerMobile(String customerMobile) {
+        return this.customerInquiryRepository.findByCustomerMobile(customerMobile).stream()
                 .map(CustomerInquiryEntity::toCustomerInquiry);
     }
 
@@ -65,8 +65,8 @@ public class CustomerInquiryPersistenceMongodb implements CustomerInquiryPersist
     }
 
     @Override
-    public Optional<CustomerInquiry> findOpenByCustomer(String customer) {
-        return this.customerInquiryRepository.findByCustomerAndState(customer, InquiryState.OPEN)
+    public Optional<CustomerInquiry> findOpenByCustomerMobile(String customerMobile) {
+        return this.customerInquiryRepository.findByCustomerMobileAndState(customerMobile, InquiryState.OPEN)
                 .map(CustomerInquiryEntity::toCustomerInquiry);
     }
 }

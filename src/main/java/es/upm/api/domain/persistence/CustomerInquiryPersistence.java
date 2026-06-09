@@ -15,11 +15,11 @@ public interface CustomerInquiryPersistence {
 
     Stream<CustomerInquiry> findAll();
 
-    Stream<CustomerInquiry> findByCustomer(String customer);
+    Stream<CustomerInquiry> findByCustomerMobile(String customerMobile);
 
     CustomerInquiry update(CustomerInquiry inquiry);
 
     void deleteById(UUID id);
 
-    Optional<CustomerInquiry> findOpenByCustomer(String customer);
+    Optional<CustomerInquiry> findOpenByCustomerMobile(String customerMobile);
 }

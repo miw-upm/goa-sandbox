@@ -20,7 +20,7 @@ class CustomerInquiryEntityTest {
         this.inquiry = CustomerInquiry.builder()
                 .id(UUID.randomUUID())
                 .registrationDate(LocalDateTime.of(2026, 6, 1, 10, 0))
-                .customer("customer1")
+                .customerMobile("customer1")
                 .subject("My subject")
                 .description("My description")
                 .category(InquiryCategory.BILLING)
@@ -34,7 +34,7 @@ class CustomerInquiryEntityTest {
 
         assertEquals(this.inquiry.getId(), entity.getId());
         assertEquals(this.inquiry.getRegistrationDate(), entity.getRegistrationDate());
-        assertEquals(this.inquiry.getCustomer(), entity.getCustomer());
+        assertEquals(this.inquiry.getCustomerMobile(), entity.getCustomerMobile());
         assertEquals(this.inquiry.getSubject(), entity.getSubject());
         assertEquals(this.inquiry.getDescription(), entity.getDescription());
         assertEquals(this.inquiry.getCategory(), entity.getCategory());
@@ -48,7 +48,7 @@ class CustomerInquiryEntityTest {
         CustomerInquiry mapped = entity.toCustomerInquiry();
 
         assertEquals(entity.getId(), mapped.getId());
-        assertEquals(entity.getCustomer(), mapped.getCustomer());
+        assertEquals(entity.getCustomerMobile(), mapped.getCustomerMobile());
         assertEquals(entity.getSubject(), mapped.getSubject());
         assertEquals(entity.getDescription(), mapped.getDescription());
         assertEquals(entity.getCategory(), mapped.getCategory());

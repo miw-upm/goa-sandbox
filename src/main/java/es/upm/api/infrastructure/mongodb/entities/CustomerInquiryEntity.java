@@ -23,13 +23,13 @@ public class CustomerInquiryEntity {
     @Id
     private UUID id;
     private LocalDateTime registrationDate;
-    private String customer;
+    private String customerMobile;
     private String subject;
     private String description;
     private InquiryCategory category;
     private InquiryState state;
     private String reply;
-    private String repliedBy;
+    private String repliedByMobile;
     private LocalDateTime replyDate;
 
     public CustomerInquiryEntity(CustomerInquiry inquiry) {
