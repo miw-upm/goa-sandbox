@@ -44,13 +44,13 @@ class CustomerInquiryServiceIT {
     @Test
     @WithMockUser(username = "customer1", roles = "customer")
     void shouldCreateInquiry() {
-        when(this.customerInquiryPersistence.findOpenByCustomer("customer1")).thenReturn(Optional.empty());
+        when(this.customerInquiryPersistence.findOpenByCustomerMobile("customer1")).thenReturn(Optional.empty());
         when(this.customerInquiryPersistence.create(any())).thenAnswer(i -> i.getArgument(0));
 
         CustomerInquiry result = this.customerInquiryService.create(this.inquiry);
 
         assertNotNull(result.getId());
-        assertEquals("customer1", result.getCustomer());
+        assertEquals("customer1", result.getCustomerMobile());
         assertEquals(InquiryState.OPEN, result.getState());
         assertNotNull(result.getRegistrationDate());
         verify(this.customerInquiryPersistence).create(any());
@@ -60,8 +60,8 @@ class CustomerInquiryServiceIT {
     @WithMockUser(username = "customer1", roles = "customer")
     void shouldThrowConflictWhenCustomerAlreadyHasOpenInquiry() {
         CustomerInquiry existing = CustomerInquiry.builder()
-                .id(UUID.randomUUID()).customer("customer1").state(InquiryState.OPEN).build();
-        when(this.customerInquiryPersistence.findOpenByCustomer("customer1")).thenReturn(Optional.of(existing));
+                .id(UUID.randomUUID()).customerMobile("customer1").state(InquiryState.OPEN).build();
+        when(this.customerInquiryPersistence.findOpenByCustomerMobile("customer1")).thenReturn(Optional.of(existing));
 
         assertThrows(ConflictException.class, () -> this.customerInquiryService.create(this.inquiry));
         verify(this.customerInquiryPersistence, never()).create(any());

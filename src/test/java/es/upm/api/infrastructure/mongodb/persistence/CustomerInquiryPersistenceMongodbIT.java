@@ -41,7 +41,7 @@ class CustomerInquiryPersistenceMongodbIT {
         this.inquiry = CustomerInquiry.builder()
                 .id(UUID.randomUUID())
                 .registrationDate(LocalDateTime.of(2026, 6, 1, 10, 0))
-                .customer("customer1")
+                .customerMobile("customer1")
                 .subject("Billing issue")
                 .description("Charged twice")
                 .category(InquiryCategory.BILLING)
@@ -90,20 +90,20 @@ class CustomerInquiryPersistenceMongodbIT {
 
     @Test
     void shouldFindByCustomer() {
-        when(this.customerInquiryRepository.findByCustomer("customer1"))
+        when(this.customerInquiryRepository.findByCustomerMobile("customer1"))
                 .thenReturn(List.of(new CustomerInquiryEntity(this.inquiry)));
 
-        Stream<CustomerInquiry> result = this.persistence.findByCustomer("customer1");
+        Stream<CustomerInquiry> result = this.persistence.findByCustomerMobile("customer1");
 
         assertEquals(this.inquiry, result.findFirst().orElse(null));
     }
 
     @Test
     void shouldFindOpenByCustomer() {
-        when(this.customerInquiryRepository.findByCustomerAndState("customer1", InquiryState.OPEN))
+        when(this.customerInquiryRepository.findByCustomerMobileAndState("customer1", InquiryState.OPEN))
                 .thenReturn(Optional.of(new CustomerInquiryEntity(this.inquiry)));
 
-        Optional<CustomerInquiry> result = this.persistence.findOpenByCustomer("customer1");
+        Optional<CustomerInquiry> result = this.persistence.findOpenByCustomerMobile("customer1");
 
         assertTrue(result.isPresent());
         assertEquals(this.inquiry, result.get());

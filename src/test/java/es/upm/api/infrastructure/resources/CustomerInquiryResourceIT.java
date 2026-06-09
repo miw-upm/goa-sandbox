@@ -51,7 +51,7 @@ class CustomerInquiryResourceIT {
         this.inquiry = CustomerInquiry.builder()
                 .id(this.inquiryId)
                 .registrationDate(LocalDateTime.of(2026, 6, 1, 10, 0))
-                .customer("customer1")
+                .customerMobile("customer1")
                 .subject("Billing issue")
                 .description("Charged twice")
                 .category(InquiryCategory.BILLING)
@@ -70,7 +70,7 @@ class CustomerInquiryResourceIT {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(this.inquiryId.toString()))
                 .andExpect(jsonPath("$.state").value("OPEN"))
-                .andExpect(jsonPath("$.customer").value("customer1"));
+                .andExpect(jsonPath("$.customerMobile").value("customer1"));
 
         verify(this.customerInquiryService).create(any());
     }
@@ -152,7 +152,7 @@ class CustomerInquiryResourceIT {
                 .id(this.inquiryId).subject("New subject").description("New desc")
                 .category(InquiryCategory.BILLING).build();
         CustomerInquiry response = CustomerInquiry.builder()
-                .id(this.inquiryId).customer("customer1").subject("New subject")
+                .id(this.inquiryId).customerMobile("customer1").subject("New subject")
                 .description("New desc").category(InquiryCategory.BILLING).state(InquiryState.OPEN).build();
 
         when(this.customerInquiryService.update(eq(this.inquiryId), any())).thenReturn(response);

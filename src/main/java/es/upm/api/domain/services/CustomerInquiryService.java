@@ -25,11 +25,11 @@ public class CustomerInquiryService {
 
     public CustomerInquiry create(CustomerInquiry inquiry) {
         String currentUser = currentUsername();
-        if (this.customerInquiryPersistence.findOpenByCustomer(currentUser).isPresent()) {
+        if (this.customerInquiryPersistence.findOpenByCustomerMobile(currentUser).isPresent()) {
             throw new ConflictException("Customer already has an open inquiry");
         }
         inquiry.setId(UUID.randomUUID());
-        inquiry.setCustomer(currentUser);
+        inquiry.setCustomerMobile(currentUser);
         inquiry.setRegistrationDate(LocalDateTime.now());
         inquiry.setState(InquiryState.OPEN);
         return this.customerInquiryPersistence.create(inquiry);
@@ -37,14 +37,14 @@ public class CustomerInquiryService {
 
     public Stream<CustomerInquiry> findAll() {
         if (hasRole("customer")) {
-            return this.customerInquiryPersistence.findByCustomer(currentUsername());
+            return this.customerInquiryPersistence.findByCustomerMobile(currentUsername());
         }
         return this.customerInquiryPersistence.findAll();
     }
 
     public CustomerInquiry readById(UUID id) {
         CustomerInquiry inquiry = this.customerInquiryPersistence.readById(id);
-        if (hasRole("customer") && !inquiry.getCustomer().equals(currentUsername())) {
+        if (hasRole("customer") && !inquiry.getCustomerMobile().equals(currentUsername())) {
             throw new ForbiddenException("Access denied to inquiry: " + id);
         }
         return inquiry;
@@ -76,7 +76,7 @@ public class CustomerInquiryService {
             throw new InvalidTransitionException("Inquiry must be OPEN to reply");
         }
         inquiry.setReply(replyText);
-        inquiry.setRepliedBy(currentUsername());
+        inquiry.setRepliedByMobile(currentUsername());
         inquiry.setReplyDate(LocalDateTime.now());
         inquiry.setState(InquiryState.ANSWERED);
         return this.customerInquiryPersistence.update(inquiry);
@@ -102,7 +102,7 @@ public class CustomerInquiryService {
     }
 
     private void assertOwner(CustomerInquiry inquiry) {
-        if (!isAdmin() && !inquiry.getCustomer().equals(currentUsername())) {
+        if (!isAdmin() && !inquiry.getCustomerMobile().equals(currentUsername())) {
             throw new ForbiddenException("Access denied to inquiry: " + inquiry.getId());
         }
     }
