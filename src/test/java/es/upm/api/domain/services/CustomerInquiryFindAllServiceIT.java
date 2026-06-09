@@ -31,28 +31,28 @@ class CustomerInquiryFindAllServiceIT {
     @WithMockUser(username = "customer1", roles = "customer")
     void shouldReturnOnlyOwnInquiriesForCustomer() {
         CustomerInquiry own = CustomerInquiry.builder()
-                .id(UUID.randomUUID()).customer("customer1").state(InquiryState.OPEN)
+                .id(UUID.randomUUID()).customerMobile("customer1").state(InquiryState.OPEN)
                 .subject("Mine").description("d").category(InquiryCategory.BILLING).build();
-        when(this.customerInquiryPersistence.findByCustomer("customer1")).thenReturn(Stream.of(own));
+        when(this.customerInquiryPersistence.findByCustomerMobile("customer1")).thenReturn(Stream.of(own));
 
         Stream<CustomerInquiry> result = this.customerInquiryService.findAll();
 
         assertEquals(own, result.findFirst().orElse(null));
-        verify(this.customerInquiryPersistence).findByCustomer("customer1");
+        verify(this.customerInquiryPersistence).findByCustomerMobile("customer1");
         verify(this.customerInquiryPersistence, never()).findAll();
     }
 
     @Test
     @WithMockUser(username = "manager1", roles = "manager")
     void shouldReturnAllInquiriesForManager() {
-        CustomerInquiry i1 = CustomerInquiry.builder().id(UUID.randomUUID()).customer("c1").build();
-        CustomerInquiry i2 = CustomerInquiry.builder().id(UUID.randomUUID()).customer("c2").build();
+        CustomerInquiry i1 = CustomerInquiry.builder().id(UUID.randomUUID()).customerMobile("c1").build();
+        CustomerInquiry i2 = CustomerInquiry.builder().id(UUID.randomUUID()).customerMobile("c2").build();
         when(this.customerInquiryPersistence.findAll()).thenReturn(Stream.of(i1, i2));
 
         long count = this.customerInquiryService.findAll().count();
 
         assertEquals(2, count);
         verify(this.customerInquiryPersistence).findAll();
-        verify(this.customerInquiryPersistence, never()).findByCustomer(any());
+        verify(this.customerInquiryPersistence, never()).findByCustomerMobile(any());
     }
 }
