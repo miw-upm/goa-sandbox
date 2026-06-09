@@ -28,7 +28,18 @@ public class ComplaintService {
         return complaint;
     }
 
+    public Complaint update(UUID id, Complaint complaint) {
+        this.readById(id);
+        complaint.setId(id);
+        this.engagementWebClient.readById(complaint.getEngagementId());
+        return this.complaintPersistence.update(id, complaint);
+    }
+
     public Stream<Complaint> findAll() {
         return this.complaintPersistence.findAll();
+    }
+
+    public Complaint readById(UUID id) {
+        return this.complaintPersistence.readById(id);
     }
 }
