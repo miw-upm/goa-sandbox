@@ -5,6 +5,7 @@ import es.upm.api.domain.persistence.ComplaintPersistence;
 import es.upm.api.domain.webclients.EngagementWebClient;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -21,6 +22,7 @@ public class ComplaintService {
 
     public Complaint create(Complaint complaint) {
         complaint.setId(UUID.randomUUID());
+        complaint.setCreatedAt(LocalDateTime.now());
         this.engagementWebClient.readById(complaint.getEngagementId());
         this.complaintPersistence.create(complaint);
         return complaint;
